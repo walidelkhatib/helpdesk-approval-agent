@@ -35,6 +35,14 @@ export default function ChatPage() {
 
   const busy = status === "submitted" || status === "streaming";
 
+  // Reasoning models can think for a while before any text or tool call
+  // arrives, so keep the indicator up until something visible streams in.
+  const last = messages.at(-1);
+  const showThinking =
+    busy &&
+    (last?.role !== "assistant" ||
+      !last.parts.some((p) => p.type === "text" || p.type.startsWith("tool-")));
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -128,8 +136,8 @@ export default function ChatPage() {
           </div>
         ))}
 
-        {status === "submitted" && (
-          <p className="text-sm text-zinc-400">Thinking…</p>
+        {showThinking && (
+          <p className="animate-pulse text-sm text-zinc-400">Thinking…</p>
         )}
         {error && (
           <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">

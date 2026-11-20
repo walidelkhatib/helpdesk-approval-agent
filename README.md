@@ -4,7 +4,9 @@ An IT help desk agent built with Next.js and the Vercel AI SDK. It turns plain-E
 
 **Live demo:** _coming soon_ <!-- replace with https://<your-project>.vercel.app -->
 
-![Screenshot of a proposed ticket card with Approve and Reject buttons](docs/screenshot.png)
+| Proposed: waiting for a human | Approved: ticket created |
+| --- | --- |
+| ![Proposed ticket card with Approve and Reject buttons](docs/proposed-ticket.jpg) | ![Ticket IT-1042 created after approval](docs/ticket-created.jpg) |
 
 ## Why approval matters
 
@@ -48,7 +50,7 @@ sequenceDiagram
 - **Schema validation.** Tool arguments are checked against a Zod schema (category and priority enums, length limits) before approval and again before execution. Invalid proposals become a tool error the model and user can see, and nothing is created.
 - **Live data through tools.** Facts about existing tickets come from `list_tickets`, never from the conversation. The system prompt also forbids claiming a ticket exists without a returned ticket ID.
 - **Streaming.** [`/api/chat`](src/app/api/chat/route.ts) returns `createAgentUIStreamResponse`, so text, tool calls, approval requests and results stream to the browser as they happen.
-- **Model access through AI Gateway.** The model is a plain string (`anthropic/claude-sonnet-5.5`, override with `AI_MODEL`). On Vercel it authenticates through OIDC with no key to manage. AI Gateway's free monthly credits work on the Hobby plan, but Vercel requires a credit card on the account to unlock them.
+- **Model access through AI Gateway.** The model is a plain string. The default, `openai/gpt-5-mini`, is on AI Gateway's free tier. Set `AI_MODEL` to swap models, for example `anthropic/claude-sonnet-5.5` with paid credits, with no code change. On Vercel it authenticates through OIDC with no key to manage. AI Gateway's free monthly credits work on the Hobby plan, but Vercel requires a credit card on the account to unlock them.
 
 ## Tests
 

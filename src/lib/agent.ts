@@ -74,7 +74,9 @@ const instructions = `You are a concise IT help desk agent.
 export function createHelpdeskAgent(
   // AI Gateway model string ("provider/model"). Authenticated by
   // AI_GATEWAY_API_KEY locally, or automatically via OIDC on Vercel.
-  model: LanguageModel = process.env.AI_MODEL ?? "anthropic/claude-sonnet-5.5",
+  // The default is on AI Gateway's free tier; set AI_MODEL to use another
+  // model (e.g. "anthropic/claude-sonnet-5.5" with paid credits).
+  model: LanguageModel = process.env.AI_MODEL ?? "openai/gpt-5-mini",
 ) {
   return new ToolLoopAgent({
     model,
