@@ -2,7 +2,7 @@
 
 An IT help desk agent built with Next.js and the Vercel AI SDK. It turns plain-English requests into tickets, but it never creates one until a person approves it.
 
-**Live demo:** _coming soon_ <!-- replace with https://<your-project>.vercel.app -->
+**Live demo:** https://helpdesk-approval-agent.vercel.app
 
 | Proposed: waiting for a human | Approved: ticket created |
 | --- | --- |
